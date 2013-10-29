@@ -1,0 +1,81 @@
+h1. fluent-plugin-cloudstack-sample
+
+h2. 概要
+
+fluentdを使って以下の機能を達成したい時のサンプルコンフィグ集です。
+
+* cloudstackの利用状況のgrowthforecastへの出力
+* cloudstackのイベントログ(list_events API)の自動保存とlog level監視
+
+
+h2. インストール方法/起動方法
+
+h3. 付属のfluentdで動かす場合
+
+インストール方法
+
+<pre>
+$ git clone https://github.com/u-ichi/fluent-plugin-cloudstack-sample.git
+$ cd fluent-plugin-cloudstack-sample
+$ bundle install --path vendor/bundle
+</pre>
+
+起動方法(後述の設定を実施後に起動してください)
+
+<pre>
+$ bundle exec fluentd -c config/td-agent.conf &
+</pre>
+
+h3. td-agentを利用する場合
+
+インストール方法
+
+<pre>
+$ sudo /usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-mail \
+                                                   fluent-plugin-cloudstack \
+                                                   fluent-plugin-config-expander \
+                                                   fluent-plugin-s3 \
+                                                   fluent-plugin-forest \
+                                                   fluent-plugin-growthforecast
+
+$ git clone https://github.com/u-ichi/fluent-plugin-cloudstack-sample.git
+$ cp -R fluent-plugin-cloudstack-sample/config/* /etc/td-agent/
+</pre>
+
+
+h2. 動作上の前提条件
+
+* growthforecastを使える事
+** http://kazeburo.github.io/GrowthForecast/
+* 利用可能なsmtpserverがある事
+* CloudStackが利用可能な事
+* AWS S3互換ObjectStorageを利用可能な事(Option)
+
+
+h2. 設定方法
+
+設定が終わったらfluentdプロセスの再起動を実施する事
+
+<pre>
+$ cp config/input/cloudstack.conf.sample config/input/cloudstack.conf
+$ cp config/output/usages.conf.sample config/output/usages.conf
+$ cp config/output/event.conf.sample config/output/event.conf
+</pre>
+
+h3. input/cloudstack.conf
+
+* host,apikey,secretkeyにCloudStackの情報を記載する事
+** 詳細の設定は https://github.com/u-ichi/fluent-plugin-cloudstack を参照
+
+h3. output/usages.conf
+
+* gfapi_urlにgrowthforecastのAPI urlを記載する事
+* Basic認証を利用している場合などの詳しい設定方法は https://github.com/tagomoris/fluent-plugin-growthforecast を参照
+
+h3. output/event.conf
+
+* notificationのtype mailの中のhost, port, domain, from等のメール送信するために必要な情報を記載
+** 認証設定が必要な場合などの詳しい設定方法は https://github.com/u-ichi/fluent-plugin-mail を参照
+* ObjectStorageへの保存をしたい場合はtype S3のstore句をコメントアウトし、aws_key_id, aws_sec_key, s3_bucket, s3_endpointを修正
+
+

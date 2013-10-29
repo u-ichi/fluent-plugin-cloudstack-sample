@@ -1,0 +1,9 @@
+
+<match cloudstack.usages>
+  type growthforecast
+  gfapi_url http://127.0.0.1:5125/api/
+  service   cloudstack
+  section   usages
+  name_key_pattern .*
+</match>
+

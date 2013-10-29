@@ -1,0 +1,8 @@
+
+<source>
+  type cloudstack
+  host comp-api.jp-e1.cloudn-service.com
+  apikey 
+  secretkey 
+</source>
+

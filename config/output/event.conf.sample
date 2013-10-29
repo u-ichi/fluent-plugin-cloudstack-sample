@@ -1,0 +1,87 @@
+
+<match cloudstack.event>
+  type copy
+
+  <store>
+    type file
+
+    path logs/events/
+    time_slice_format %Y%m%d
+    time_slice_wait 10m
+    time_format %Y%m%dT%H%M%S%z
+    utc
+  </store>
+
+  <store>
+    type notifier
+
+    <def>
+      pattern CloudStackEvent
+      check string_find
+      crit_regexp ERROR
+      warn_regexp WARN
+      target_key_pattern level
+    </def>
+  </store>
+
+#  <store>
+#    type s3
+#
+#    aws_key_id hoge
+#    aws_sec_key fuga
+#    s3_bucket hoge_bucket_name
+#    s3_endpoint str.cloudn-service.com
+#    s3_object_key_format %{path}/cloudstack_events/%{time_slice}_%{index}.%{file_extension}
+#    path logs
+#    buffer_path /tmp/fluentd/cloudstack_events/
+#
+#    time_slice_format %Y%m%d
+#    time_slice_wait 5m
+#    utc
+#  </store>
+</match>
+
+
+<match notification**>
+  type copy
+
+  <store>
+    type file
+
+    path logs/notification/
+    time_slice_format %Y%m%d
+    time_slice_wait 10m
+    time_format %Y%m%dT%H%M%S%z
+    utc
+  </store>
+
+  <store>
+    type mail
+
+    host $smtp_server
+    port 25
+    domain hoge.com
+    from fuga@hoge.com
+    to fugafuga@hoge.com
+    subject  LogCheck Alerm %s
+    subject_out_keys target_tag
+    out_keys target_tag,pattern,message_time,value
+  </store>
+
+#  <store>
+#    type s3
+#
+#    aws_key_id hoge
+#    aws_sec_key fuga
+#    s3_bucket hoge_bucket_name
+#    s3_endpoint str.cloudn-service.com
+#    s3_object_key_format %{path}/notification/%{time_slice}_%{index}.%{file_extension}
+#    path logs
+#    buffer_path /tmp/fluentd/notification/
+#
+#    time_slice_format %Y%m%d
+#    time_slice_wait 5m
+#    utc
+#  </store>
+</match>
+

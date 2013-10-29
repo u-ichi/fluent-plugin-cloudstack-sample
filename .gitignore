@@ -1,0 +1,7 @@
+.bundle
+vendor/bundle
+logs/*
+config/input/*.conf
+config/output/*.conf
+config/forward/*.conf
+
