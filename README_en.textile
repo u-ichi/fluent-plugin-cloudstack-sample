@@ -1,0 +1,70 @@
+h1. fluent-plugin-cloudstack-sample
+
+This repository is sample config usage for flueentd.
+
+* Output growthforecast
+* Autosave CloudStack EventLog
+* Keyword monitroging to CloudStack Evenglog's log level
+
+h2. Install
+
+h3. use fluentd gem package
+
+<pre>
+$ git clone https://github.com/u-ichi/fluent-plugin-cloudstack-sample.git
+$ cd fluent-plugin-cloudstack-sample
+$ bundle install --path vendor/bundle
+</pre>
+
+<pre>
+$ bundle exec fluentd -c config/td-agent.conf &
+</pre>
+
+h3. use td-agent
+
+<pre>
+$ sudo /usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-mail \
+                                                   fluent-plugin-cloudstack \
+                                                   fluent-plugin-config-expander \
+                                                   fluent-plugin-s3 \
+                                                   fluent-plugin-forest \
+                                                   fluent-plugin-growthforecast
+
+$ git clone https://github.com/u-ichi/fluent-plugin-cloudstack-sample.git
+$ cp -R fluent-plugin-cloudstack-sample/config/* /etc/td-agent/
+</pre>
+
+
+h2. pre-condition of exec
+
+* can use growthforecast
+** http://kazeburo.github.io/GrowthForecast/
+* can use smtpserver
+* can use CloudStack
+* can use object storage(S3 compatible) # Optional
+
+
+h2. Configuration
+
+<pre>
+$ cp config/input/cloudstack.conf.sample config/input/cloudstack.conf
+$ cp config/output/usages.conf.sample config/output/usages.conf
+$ cp config/output/event.conf.sample config/output/event.conf
+</pre>
+
+h3. input/cloudstack.conf
+
+* Add config host,apikey,secretkey
+** https://github.com/u-ichi/fluent-plugin-cloudstack
+
+h3. output/usages.conf
+
+* Add config gfapi_url
+** https://github.com/tagomoris/fluent-plugin-growthforecast
+
+h3. output/event.conf
+
+* Add config host, port, domain, from in type notification
+** https://github.com/u-ichi/fluent-plugin-mail
+* Add config aws_key_id, aws_sec_key, s3_bucket, s3_endpoint in type S3
+

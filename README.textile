@@ -1,5 +1,7 @@
 h1. fluent-plugin-cloudstack-sample
 
+* README_en(English)
+** https://github.com/u-ichi/fluent-plugin-cloudstack-sample/blob/master/README_en.textile
 * README_ja(japanese)
 ** https://github.com/u-ichi/fluent-plugin-cloudstack-sample/blob/master/README_ja.textile
 
