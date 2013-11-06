@@ -9,11 +9,11 @@ GEM
     cool.io (1.1.1)
       iobuffer (>= 1.0.0)
     eventmachine (1.0.3)
-    excon (0.27.6)
+    excon (0.28.0)
     fluent-mixin-config-placeholders (0.2.3)
       fluentd
       uuidtools
-    fluent-plugin-cloudstack (0.0.6)
+    fluent-plugin-cloudstack (0.0.9)
       eventmachine
       fluentd (>= 0.10.7)
       fog
@@ -40,9 +40,9 @@ GEM
       json (>= 1.4.3)
       msgpack (>= 0.4.4, < 0.6.0, != 0.5.3, != 0.5.2, != 0.5.1, != 0.5.0)
       yajl-ruby (~> 1.0)
-    fog (1.16.0)
+    fog (1.18.0)
       builder
-      excon (~> 0.27.0)
+      excon (~> 0.28.0)
       formatador (~> 0.2.0)
       mime-types
       multi_json (~> 1.0)
@@ -50,7 +50,6 @@ GEM
       net-ssh (>= 2.1.3)
       nokogiri (~> 1.5)
       ruby-hmac
-      unicode (~> 0.4.4)
     formatador (0.2.4)
     http_parser.rb (0.5.3)
     iobuffer (1.1.2)
@@ -66,7 +65,6 @@ GEM
       mini_portile (~> 0.5.0)
     resolve-hostname (0.0.4)
     ruby-hmac (0.4.0)
-    unicode (0.4.4)
     uuidtools (2.1.4)
     yajl-ruby (1.1.0)
 
